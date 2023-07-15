@@ -41,8 +41,8 @@ Operaciones para realizar =
     if operacionRealizar == 1:
         print("""La lista de usuarios es= 
 1.- Supervisor
-2.- Manager
-3.- Employee                                  
+2.- Jefe Bodegueros
+3.- Bodeguero                                 
         """)
         while True:
             selectUser = int(input("Seleccionar Usuario= "))
@@ -50,14 +50,15 @@ Operaciones para realizar =
                 if selectUser == 1:
                     selectUser = "Supervisor"
                 elif selectUser == 2:
-                    selectUser = "Manager"
+                    selectUser = "JefeBodegueros"
                 elif selectUser == 3:
-                    selectUser = "Employee"
+                    selectUser = "Bodeguero"
                 newpass = input("nueva contrasena= ")
                 main.passChange(selectUser, newpass)
                 print("Contrasena cambiada con exito")
                 break
             else:
                 print("Selecciona el numero de un usuario existente")
+
 
 print("todo correcto")

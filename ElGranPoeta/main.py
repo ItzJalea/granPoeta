@@ -38,3 +38,16 @@ def passChange(usuario, newpass):
         conn.close()
 
 
+def crearBodega(nombre_bod,ubicacion):
+    try:
+        conn = mysql.connector.connect(**config)
+        cursor = conn.cursor()
+        cursor.execute("insert into bodega (nombre_bodega, ubicacion) values (%s,%s)", (nombre_bod,ubicacion))
+        conn.commit()
+    except mysql.connector.Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+
+
