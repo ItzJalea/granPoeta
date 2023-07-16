@@ -4,24 +4,13 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="nS3cR3t",
-    database="ELGRANPOETA"
+    password="",
+    database="elgranpoeta"
 )
-
 
 # Crear un cursor para ejecutar consultas
 cursor = db.cursor()
 
-# Función para mostrar el menú
-def mostrar_menu():
-    print("--- Producto ---")
-    print("1. Crear producto")
-    print("2. Leer productos")
-    print("3. Filtrar productos por editorial")
-    print("4. Filtrar productos por categoría")
-    print("5. Actualizar producto")
-    print("6. Eliminar producto")
-    print("7. Salir")
 
 # Función para crear un producto
 def crear_producto():
@@ -41,6 +30,10 @@ def crear_producto():
         print("Producto creado exitosamente.")
     except mysql.connector.Error as error:
         print("Error al crear el producto:", error)
+    finally:
+        cursor.close()
+        db.close()
+        
 
 # Función para leer productos
 def leer_productos():
@@ -49,7 +42,6 @@ def leer_productos():
         query = "SELECT p.id_producto, p.autor, p.nombre, p.descripcion, c.nombre_categoria, e.nombre_editorial FROM producto p JOIN categoria c ON p.id_categoria = c.id_categoria JOIN editorial e ON p.id_editorial = e.id_editorial"
         cursor.execute(query)
         productos = cursor.fetchall()
-
         if len(productos) > 0:
             print("--- PRODUCTOS ---")
             for producto in productos:
@@ -64,6 +56,9 @@ def leer_productos():
             print("No hay productos en la base de datos.")
     except mysql.connector.Error as error:
         print("Error al leer los productos:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 # Función para filtrar productos por editorial
 def filtrar_por_editorial():
@@ -90,6 +85,9 @@ def filtrar_por_editorial():
             print(f"No hay productos de la editorial {id_editorial}.")
     except mysql.connector.Error as error:
         print("Error al filtrar los productos por editorial:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 # Función para filtrar productos por categoría
 def filtrar_por_categoria():
@@ -116,6 +114,9 @@ def filtrar_por_categoria():
             print(f"No hay productos de la categoría {id_categoria}.")
     except mysql.connector.Error as error:
         print("Error al filtrar los productos por categoría:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 # Función para actualizar un producto
 def actualizar_producto():
@@ -136,6 +137,9 @@ def actualizar_producto():
         print("Producto actualizado exitosamente.")
     except mysql.connector.Error as error:
         print("Error al actualizar el producto:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 # Función para eliminar un producto
 def eliminar_producto():
@@ -159,6 +163,9 @@ def eliminar_producto():
         print("Producto eliminado exitosamente.")
     except mysql.connector.Error as error:
         print("Error al eliminar el producto:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 # Función para mostrar las categorías disponibles
 def mostrar_categorias():
@@ -176,29 +183,34 @@ def mostrar_categorias():
             print("No hay categorías en la base de datos.")
     except mysql.connector.Error as error:
         print("Error al obtener las categorías:", error)
+    finally:
+        cursor.close()
+        db.close()
 
-# Loop principal del programa
-while True:
-    mostrar_menu()
+def mostrar_menu():
+    print("--- Producto ---")
+    print("1. Crear producto")
+    print("2. Leer productos")
+    print("3. Filtrar productos por editorial")
+    print("4. Filtrar productos por categoría")
+    print("5. Actualizar producto")
+    print("6. Eliminar producto")
+    print("7. Salir")
     opcion = input("Ingrese una opción: ")
-
-    if opcion == "1":
-        crear_producto()
-    elif opcion == "2":
-        leer_productos()
-    elif opcion == "3":
-        filtrar_por_editorial()
-    elif opcion == "4":
-        filtrar_por_categoria()
-    elif opcion == "5":
-        actualizar_producto()
-    elif opcion == "6":
-        eliminar_producto()
-    elif opcion == "7":
-        break
-    else:
-        print("Opción inválida. Intente nuevamente.")
-
-
-cursor.close()
-db.close()
+    while True:
+        if opcion == "1":
+            crear_producto()
+        elif opcion == "2":
+            leer_productos()
+        elif opcion == "3":
+            filtrar_por_editorial()
+        elif opcion == "4":
+            filtrar_por_categoria()
+        elif opcion == "5":
+            actualizar_producto()
+        elif opcion == "6":
+            eliminar_producto()
+        elif opcion == "7":
+            break
+        else:
+            print("Opción inválida. Intente nuevamente.")

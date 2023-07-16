@@ -1,5 +1,7 @@
 import main
-
+import categoria_crud
+import editorial_crud
+import producto_crud
 
 print("""
 Selecciona el numero de usuario que ingresara
@@ -14,10 +16,10 @@ while True:
         usuario = "Supervisor"
         break
     elif userSelect == 2:
-        usuario = "Manager"
+        usuario = "JefeBodegueros"
         break
     elif userSelect == 3:
-        usuario = "Employee"
+        usuario = "Bodeguero"
         break
     else:
          print("asegurate de seleccionar el numero correcto")
@@ -60,5 +62,18 @@ Operaciones para realizar =
             else:
                 print("Selecciona el numero de un usuario existente")
 
+elif userSelect == 2:
+    print("""
+Operaciones para realizar =
+1.- Modificar Categorias
+2.- Modificar Editoriales
+3.- Modificar Productos
+    """)
+    operacionRealizar = int(input("Selecciona= "))
+    if operacionRealizar == 1:
+        categoria_crud.mostrar_menu()
+    elif operacionRealizar == 2:
+        editorial_crud.mostrar_menu()
+    elif operacionRealizar == 3:
+        producto_crud.mostrar_menu()
 
-print("todo correcto")
