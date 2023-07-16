@@ -78,7 +78,7 @@ def eliminar_bodega():
         db.commit()
         print("Bodega eliminada exitosamente.")
     except mysql.connector.Error as error:
-        print("Error al eliminar la bodega:", error)
+        print("No se puede eliminar esta bodega, contiene productos en ella.:", error)
     finally:
         cursor.close()
         db.close()
