@@ -2,6 +2,8 @@ import main
 import categoria_crud
 import editorial_crud
 import producto_crud
+import editorial_crud
+import bodega_crud
 
 print("""
 Selecciona el numero de usuario que ingresara
@@ -68,6 +70,8 @@ Operaciones para realizar =
 1.- Modificar Categorias
 2.- Modificar Editoriales
 3.- Modificar Productos
+4.- Modificar Editorial
+5.- Modificar Bodegas
     """)
     operacionRealizar = int(input("Selecciona= "))
     if operacionRealizar == 1:
@@ -76,4 +80,8 @@ Operaciones para realizar =
         editorial_crud.mostrar_menu()
     elif operacionRealizar == 3:
         producto_crud.mostrar_menu()
+    elif operacionRealizar == 4:
+        editorial_crud.mostrar_menu()
+    elif operacionRealizar == 5:
+        bodega_crud.mostrar_menu()
 

@@ -3,20 +3,11 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="nS3cR3t",
-    database="ELGRANPOETA"
+    password="",
+    database="elgranpoeta"
 )
 
 cursor = db.cursor()
-
-
-def mostrar_menu():
-    print("--- BODEGA ---")
-    print("1. Crear bodega")
-    print("2. Listar bodegas")
-    print("3. Actualizar bodega")
-    print("4. Eliminar bodega")
-    print("5. Salir")
 
 
 def crear_bodega():
@@ -31,6 +22,9 @@ def crear_bodega():
         print("Bodega creada exitosamente.")
     except mysql.connector.Error as error:
         print("Error al crear la bodega:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 
 def listar_bodegas():
@@ -50,6 +44,9 @@ def listar_bodegas():
             print("No hay bodegas en la base de datos.")
     except mysql.connector.Error as error:
         print("Error al leer las bodegas:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 
 def actualizar_bodega():
@@ -65,6 +62,9 @@ def actualizar_bodega():
         print("Bodega actualizada exitosamente.")
     except mysql.connector.Error as error:
         print("Error al actualizar la bodega:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 
 def eliminar_bodega():
@@ -78,25 +78,32 @@ def eliminar_bodega():
         print("Bodega eliminada exitosamente.")
     except mysql.connector.Error as error:
         print("Error al eliminar la bodega:", error)
+    finally:
+        cursor.close()
+        db.close()
+
+def mostrar_menu():
+    while True:
+        print("--- BODEGA ---")
+        print("1. Crear bodega")
+        print("2. Listar bodegas")
+        print("3. Actualizar bodega")
+        print("4. Eliminar bodega")
+        print("5. Salir")
+        opcion = input("Ingrese una opción: ")
+
+        if opcion == "1":
+            crear_bodega()
+        elif opcion == "2":
+            listar_bodegas()
+        elif opcion == "3":
+            actualizar_bodega()
+        elif opcion == "4":
+            eliminar_bodega()
+        elif opcion == "5":
+            break
+        else:
+            print("Opción inválida. Intente nuevamente.")
 
 
-while True:
-    mostrar_menu()
-    opcion = input("Ingrese una opción: ")
 
-    if opcion == "1":
-        crear_bodega()
-    elif opcion == "2":
-        listar_bodegas()
-    elif opcion == "3":
-        actualizar_bodega()
-    elif opcion == "4":
-        eliminar_bodega()
-    elif opcion == "5":
-        break
-    else:
-        print("Opción inválida. Intente nuevamente.")
-
-
-cursor.close()
-db.close()

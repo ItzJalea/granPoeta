@@ -7,7 +7,13 @@ db = mysql.connector.connect(
     password="",
     database="elgranpoeta"
 )
-
+config = {
+  'user': 'root',
+  'password': '',
+  'host': 'localhost',
+  'database': 'elgranpoeta',
+  'raise_on_warnings': True
+}
 # Crear un cursor para ejecutar consultas
 cursor = db.cursor()
 
@@ -40,25 +46,28 @@ def leer_productos():
     try:
         # Obtener todos los productos de la base de datos
         query = "SELECT p.id_producto, p.autor, p.nombre, p.descripcion, c.nombre_categoria, e.nombre_editorial FROM producto p JOIN categoria c ON p.id_categoria = c.id_categoria JOIN editorial e ON p.id_editorial = e.id_editorial"
+        conn = mysql.connector.connect(**config)
+        cursor = conn.cursor()
         cursor.execute(query)
         productos = cursor.fetchall()
-        if len(productos) > 0:
-            print("--- PRODUCTOS ---")
-            for producto in productos:
-                print("ID:", producto[0])
-                print("Autor:", producto[1])
-                print("Nombre:", producto[2])
-                print("Descripción:", producto[3])
-                print("Categoría:", producto[4])
-                print("Editorial:", producto[5])
-                print("-----------------")
-        else:
-            print("No hay productos en la base de datos.")
+        print("--- PRODUCTOS ---")
+        for producto in productos:
+            print("ID:", producto[0])
+            print("Autor:", producto[1])
+            print("Nombre:", producto[2])
+            print("Descripción:", producto[3])
+            print("Categoría:", producto[4])
+            print("Editorial:", producto[5])
+            print("-----------------")
+        cursor.close()
     except mysql.connector.Error as error:
         print("Error al leer los productos:", error)
-    finally:
         cursor.close()
-        db.close()
+        conn.close()
+    finally:
+        conn.close()
+
+        
 
 # Función para filtrar productos por editorial
 def filtrar_por_editorial():
@@ -188,16 +197,16 @@ def mostrar_categorias():
         db.close()
 
 def mostrar_menu():
-    print("--- Producto ---")
-    print("1. Crear producto")
-    print("2. Leer productos")
-    print("3. Filtrar productos por editorial")
-    print("4. Filtrar productos por categoría")
-    print("5. Actualizar producto")
-    print("6. Eliminar producto")
-    print("7. Salir")
-    opcion = input("Ingrese una opción: ")
     while True:
+        print("--- Producto ---")
+        print("1. Crear producto")
+        print("2. Leer productos")
+        print("3. Filtrar productos por editorial")
+        print("4. Filtrar productos por categoría")
+        print("5. Actualizar producto")
+        print("6. Eliminar producto")
+        print("7. Salir")
+        opcion = input("Ingrese una opción: ")
         if opcion == "1":
             crear_producto()
         elif opcion == "2":
