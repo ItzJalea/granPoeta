@@ -51,7 +51,21 @@ midb = mysql.connector.connect(
     user="root",
     database="elgranpoeta"
 )
-# Cantidad de productos por bodega
+
+
+def getnombreeditorial():
+    try:
+        query = "SELECT nombre_editorial FROM editorial"
+        cursor = midb.cursor()
+        cursor.execute(query)
+        editoriales = cursor.fetchall()
+        for editorial in editoriales:
+            print("Editorial = ",editorial[0])
+    except mysql.connector.Error as error:
+        print(error)
+    finally:
+        cursor.close()
+
 def cantidad_productos_por_bodega():
     cursor = midb.cursor()
 
@@ -117,6 +131,7 @@ def productos_por_bodega_y_editorial():
         bodega = input("Ingrese el nombre de la bodega: ")
 
         # Obtener la editorial seleccionada por el usuario
+        getnombreeditorial()
         editorial = input("Ingrese el nombre de la editorial: ")
 
         query = """
@@ -142,9 +157,9 @@ def productos_por_bodega_y_editorial():
     finally:
         cursor.close()
 
-
-cantidad_productos_por_bodega()
-print("--------------------")
-tipos_de_productos()
-print("-------------------")
-productos_por_bodega_y_editorial()
+def menuBodFiltro():
+    cantidad_productos_por_bodega()
+    print("--------------------")
+    tipos_de_productos()
+    print("-------------------")
+    productos_por_bodega_y_editorial()

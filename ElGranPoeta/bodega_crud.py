@@ -1,4 +1,5 @@
 import mysql.connector
+import informe_bod_filtro
 
 db = mysql.connector.connect(
     host="localhost",
@@ -87,9 +88,10 @@ def mostrar_menu():
         print("--- BODEGA ---")
         print("1. Crear bodega")
         print("2. Listar bodegas")
-        print("3. Actualizar bodega")
-        print("4. Eliminar bodega")
-        print("5. Salir")
+        print("3. Listar bodegas filtro")
+        print("4. Actualizar bodega")
+        print("5. Eliminar bodega")
+        print("6. Salir")
         opcion = input("Ingrese una opción: ")
 
         if opcion == "1":
@@ -97,10 +99,12 @@ def mostrar_menu():
         elif opcion == "2":
             listar_bodegas()
         elif opcion == "3":
-            actualizar_bodega()
+            informe_bod_filtro.menuBodFiltro()
         elif opcion == "4":
-            eliminar_bodega()
+            actualizar_bodega()
         elif opcion == "5":
+            eliminar_bodega()
+        elif opcion == "6":
             break
         else:
             print("Opción inválida. Intente nuevamente.")
