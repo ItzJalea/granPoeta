@@ -5,6 +5,7 @@ import producto_crud
 import editorial_crud
 import bodega_crud
 import mover_producto
+import empleado_crud
 
 print("""
 Selecciona el numero de usuario que ingresara
@@ -40,6 +41,7 @@ if userSelect == 1:
     print("""
 Operaciones para realizar =
 1.- Cambiar contrasena de usuario
+2.- Modificar empleados
     """)
 
     operacionRealizar = int(input("Selecciona= "))
@@ -64,6 +66,8 @@ Operaciones para realizar =
                 break
             else:
                 print("Selecciona el numero de un usuario existente")
+    if operacionRealizar == 2:
+        empleado_crud.mostrar_menu()
 
 elif userSelect == 2:
     print("""

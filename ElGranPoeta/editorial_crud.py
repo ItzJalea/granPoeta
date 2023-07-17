@@ -11,6 +11,7 @@ cursor = midb.cursor()
 
 def crear_editorial():
     try:
+        cursor = midb.cursor()
         nombre_editorial = input("Ingrese el nombre de la editorial: \n")
         query = "INSERT INTO editorial (nombre_editorial) VALUES (%s)"
         values = (nombre_editorial,)
@@ -21,12 +22,12 @@ def crear_editorial():
         print(error)
     finally:
         cursor.close()
-        midb.close()
 
 
 
 def listar_editorial():
     try:
+        cursor = midb.cursor()
         query = "SELECT * FROM editorial"
         cursor.execute(query)
         result = cursor.fetchall()
@@ -36,12 +37,12 @@ def listar_editorial():
         print(error)
     finally:
         cursor.close()
-        midb.close()
 
 
 
 def actualizar_editorial():
     try:
+        cursor = midb.cursor()
         id_editorial = input("Ingrese el ID de la editorial que desea actualizar: ")
         nuevo_nombre = input("Ingrese el nuevo nombre de la editorial: ")
         query = "UPDATE editorial SET nombre_editorial = %s WHERE id_editorial = %s"
@@ -53,12 +54,12 @@ def actualizar_editorial():
         print(error)
     finally:
         cursor.close()
-        midb.close()
 
 
 
 def eliminar_editorial():
     try:
+        cursor = midb.cursor()
         id_editorial = input("Ingrese el ID de la editorial que desea eliminar: ")
         query = "SELECT COUNT(*) FROM producto WHERE id_editorial = %s"
         values = (id_editorial,)
@@ -77,7 +78,6 @@ def eliminar_editorial():
         print(error)
     finally:
         cursor.close()
-        midb.close()
 
 def mostrar_menu():
     while True:

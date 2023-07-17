@@ -12,6 +12,7 @@ cursor = db.cursor()
 
 
 def crear_bodega():
+    cursor = db.cursor()
     nombre_bodega = input("Nombre de la bodega: ")
     ubicacion = input("Ubicación de la bodega: ")
 
@@ -25,11 +26,11 @@ def crear_bodega():
         print("Error al crear la bodega:", error)
     finally:
         cursor.close()
-        db.close()
 
 
 def listar_bodegas():
     try:
+        cursor = db.cursor()
         query = "SELECT * FROM bodega"
         cursor.execute(query)
         bodegas = cursor.fetchall()
@@ -47,10 +48,10 @@ def listar_bodegas():
         print("Error al leer las bodegas:", error)
     finally:
         cursor.close()
-        db.close()
 
 
 def actualizar_bodega():
+    cursor = db.cursor()
     id_bodega = int(input("ID de la bodega a actualizar: "))
     nombre_bodega = input("Nuevo nombre de la bodega: ")
     ubicacion = input("Nueva ubicación de la bodega: ")
@@ -65,10 +66,10 @@ def actualizar_bodega():
         print("Error al actualizar la bodega:", error)
     finally:
         cursor.close()
-        db.close()
 
 
 def eliminar_bodega():
+    cursor = db.cursor()
     id_bodega = int(input("ID de la bodega a eliminar: "))
 
     try:
@@ -81,7 +82,6 @@ def eliminar_bodega():
         print("No se puede eliminar esta bodega, contiene productos en ella.:", error)
     finally:
         cursor.close()
-        db.close()
 
 def mostrar_menu():
     while True:

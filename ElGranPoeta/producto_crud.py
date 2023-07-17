@@ -20,6 +20,7 @@ cursor = db.cursor()
 
 # Función para crear un producto
 def crear_producto():
+
     autor = input("Autor: ")
     nombre = input("Nombre: ")
     descripcion = input("Descripción: ")
@@ -28,6 +29,7 @@ def crear_producto():
     id_editorial = int(input("ID de editorial: "))
 
     try:
+        cursor = db.cursor()
         # Insertar el nuevo producto en la base de datos
         query = "INSERT INTO producto (autor, nombre, descripcion, id_categoria, id_editorial) VALUES (%s, %s, %s, %s, %s)"
         values = (autor, nombre, descripcion, id_categoria, id_editorial)
@@ -38,7 +40,6 @@ def crear_producto():
         print("Error al crear el producto:", error)
     finally:
         cursor.close()
-        db.close()
         
 
 # Función para leer productos
@@ -74,6 +75,7 @@ def filtrar_por_editorial():
     id_editorial = int(input("ID de la editorial a filtrar: "))
 
     try:
+        cursor = db.cursor()
         # Obtener los productos con la misma editorial
         query = "SELECT p.id_producto, p.autor, p.nombre, p.descripcion, c.nombre_categoria, e.nombre_editorial FROM producto p JOIN categoria c ON p.id_categoria = c.id_categoria JOIN editorial e ON p.id_editorial = e.id_editorial WHERE e.id_editorial = %s"
         values = (id_editorial,)
@@ -96,13 +98,13 @@ def filtrar_por_editorial():
         print("Error al filtrar los productos por editorial:", error)
     finally:
         cursor.close()
-        db.close()
 
 # Función para filtrar productos por categoría
 def filtrar_por_categoria():
     id_categoria = int(input("ID de la categoría a filtrar: "))
 
     try:
+        cursor = db.cursor()
         # Obtener los productos de la misma categoría
         query = "SELECT p.id_producto, p.autor, p.nombre, p.descripcion, c.nombre_categoria, e.nombre_editorial FROM producto p JOIN categoria c ON p.id_categoria = c.id_categoria JOIN editorial e ON p.id_editorial = e.id_editorial WHERE c.id_categoria = %s"
         values = (id_categoria,)
@@ -125,7 +127,6 @@ def filtrar_por_categoria():
         print("Error al filtrar los productos por categoría:", error)
     finally:
         cursor.close()
-        db.close()
 
 # Función para actualizar un producto
 def actualizar_producto():
@@ -138,6 +139,7 @@ def actualizar_producto():
     id_editorial = int(input("ID de editorial: "))
 
     try:
+        cursor = db.cursor()
         # Actualizar el producto en la base de datos
         query = "UPDATE producto SET autor = %s, nombre = %s, descripcion = %s, id_categoria = %s, id_editorial = %s WHERE id_producto = %s"
         values = (autor, nombre, descripcion, id_categoria, id_editorial, id_producto)
@@ -148,13 +150,13 @@ def actualizar_producto():
         print("Error al actualizar el producto:", error)
     finally:
         cursor.close()
-        db.close()
 
 # Función para eliminar un producto
 def eliminar_producto():
     id_producto = int(input("ID del producto a eliminar: "))
 
     try:
+        cursor = db.cursor()
         # Verificar si el producto está en uso
         query = "SELECT * FROM producto WHERE id_producto = %s"
         values = (id_producto,)
@@ -174,11 +176,11 @@ def eliminar_producto():
         print("Error al eliminar el producto:", error)
     finally:
         cursor.close()
-        db.close()
 
 # Función para mostrar las categorías disponibles
 def mostrar_categorias():
     try:
+        cursor = db.cursor()
         # Obtener las categorías de la base de datos
         query = "SELECT * FROM categoria"
         cursor.execute(query)
@@ -194,7 +196,6 @@ def mostrar_categorias():
         print("Error al obtener las categorías:", error)
     finally:
         cursor.close()
-        db.close()
 
 def mostrar_menu():
     while True:

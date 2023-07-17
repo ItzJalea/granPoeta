@@ -17,6 +17,7 @@ def mover_productos():
     id_empleado = int(input("ID del empleado que realiza el movimiento: "))
 
     try:
+        cursor = db.cursor()
         # Verificar si hay suficiente stock en la bodega de origen
         query_stock_origen = "SELECT cantidad_stock FROM stock WHERE id_bodega = %s AND id_producto = %s"
         values_stock_origen = (id_bodega_origen, id_producto)
@@ -51,10 +52,10 @@ def mover_productos():
         print("Error al mover los productos o generar el documento de movimiento:", error)
     finally:
         cursor.close()
-        db.close()
 
 def generar_documento_movimiento():
     try:
+        cursor = db.cursor()
         query = "SELECT m.id_movimiento, m.fecha_movimiento, b1.nombre_bodega AS bodega_origen, b2.nombre_bodega AS bodega_destino, d.cantidad, p.nombre AS nombre_producto, e.nombre_empleado FROM movimiento m JOIN bodega b1 ON m.id_bodega_origen = b1.id_bodega JOIN bodega b2 ON m.id_bodega_destino = b2.id_bodega JOIN detalle d ON m.id_detalle = d.id_detalle JOIN producto p ON d.id_producto = p.id_producto JOIN empleado e ON m.id_empleado = e.id_empleado ORDER BY m.id_movimiento DESC LIMIT 1"
         cursor.execute(query)
         movimiento = cursor.fetchone()
@@ -75,7 +76,7 @@ def generar_documento_movimiento():
         print("Error al generar el documento de movimiento:", error)
     finally:
         cursor.close()
-        db.close()
+
 
 def mostrar_menu():
     while True:

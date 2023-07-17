@@ -11,6 +11,7 @@ cursor = db.cursor()
 
 def crear_categoria():
     try:
+        cursor = db.cursor()
         nombre_categoria = input("Ingrese el nombre de la categoria: ")
         query = "INSERT INTO categoria (nombre_categoria) VALUES (%s)"
         values = (nombre_categoria,)
@@ -21,12 +22,13 @@ def crear_categoria():
         print(error)
     finally:
         cursor.close()
-        db.close()
+
 
 
 
 def listar_categoria():
     try:
+        cursor = db.cursor()
         query = "SELECT nombre_categoria FROM categoria"
         cursor.execute(query)
         result = cursor.fetchall()
@@ -36,11 +38,12 @@ def listar_categoria():
         print(error)
     finally:
         cursor.close()
-        db.close()
+
 
 
 def actualizar_categoria():
     try:
+        cursor = db.cursor()
         id_categoria = input("Ingrese el ID de la categoria que desea actualizar: ")
         nuevo_nombre = input("Ingrese el nuevo nombre de la categoria: ")
         query = "UPDATE categoria SET nombre_categoria = %s WHERE id_categoria = %s"
@@ -52,12 +55,12 @@ def actualizar_categoria():
         print(error)
     finally:
         cursor.close()
-        db.close()
 
 
 
 def eliminar_categoria():
     try:
+        cursor = db.cursor()
         id_categoria = input("Ingrese el ID de la categoria que desea eliminar: ")
         
         # Verificar si la categoria está en uso
@@ -78,7 +81,6 @@ def eliminar_categoria():
         print(error)
     finally:
         cursor.close()
-        db.close()
 
 
 
