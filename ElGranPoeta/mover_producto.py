@@ -49,6 +49,9 @@ def mover_productos():
         print("Documento de movimiento generado exitosamente.")
     except mysql.connector.Error as error:
         print("Error al mover los productos o generar el documento de movimiento:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 def generar_documento_movimiento():
     try:
@@ -70,6 +73,9 @@ def generar_documento_movimiento():
             print("No se encontró información del último movimiento.")
     except mysql.connector.Error as error:
         print("Error al generar el documento de movimiento:", error)
+    finally:
+        cursor.close()
+        db.close()
 
 def mostrar_menu():
     while True:
@@ -88,6 +94,5 @@ def mostrar_menu():
         else:
             print("Opción inválida. Intente nuevamente.")
 
-mostrar_menu()
-cursor.close()
-db.close()
+
+

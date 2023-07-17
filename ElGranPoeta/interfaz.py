@@ -4,6 +4,7 @@ import editorial_crud
 import producto_crud
 import editorial_crud
 import bodega_crud
+import mover_producto
 
 print("""
 Selecciona el numero de usuario que ingresara
@@ -85,3 +86,11 @@ Operaciones para realizar =
     elif operacionRealizar == 5:
         bodega_crud.mostrar_menu()
 
+elif userSelect == 3:
+    print("""
+Operaciones para realizar =
+1.- Mover ubicacion de producto
+    """)
+    operacionRealizar = int(input("Selecciona= "))
+    if operacionRealizar == 1:
+        mover_producto.mostrar_menu()
