@@ -6,6 +6,7 @@ import editorial_crud
 import bodega_crud
 import mover_producto
 import empleado_crud
+import informe_bod_filtro
 
 print("""
 Selecciona el numero de usuario que ingresara
@@ -77,6 +78,7 @@ Operaciones para realizar =
 3.- Modificar Productos
 4.- Modificar Editorial
 5.- Modificar Bodegas
+6.- Informe Bodegas (filtro bodega y editorial)
     """)
     operacionRealizar = int(input("Selecciona= "))
     if operacionRealizar == 1:
@@ -89,6 +91,8 @@ Operaciones para realizar =
         editorial_crud.mostrar_menu()
     elif operacionRealizar == 5:
         bodega_crud.mostrar_menu()
+    elif operacionRealizar == 6:
+        informe_bod_filtro.menuBodFiltro()
 
 elif userSelect == 3:
     print("""
